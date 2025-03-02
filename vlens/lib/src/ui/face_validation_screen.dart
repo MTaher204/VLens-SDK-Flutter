@@ -4,7 +4,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:camera/camera.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:logger/logger.dart';
@@ -40,7 +39,6 @@ class _FaceValidationScreenState extends State<FaceValidationScreen> {
   late FaceValidationTypes _currentFace;
   bool _isLoading = false;
   bool _shouldFlipPreview = false;
-  Timer? _timer;
 
   var logger = Logger();
 
@@ -326,7 +324,7 @@ class _FaceValidationScreenState extends State<FaceValidationScreen> {
     bool isProcessing = false; // Prevent overlapping detections
 
     if (Platform.isAndroid) {
-      _timer = Timer.periodic(Duration(seconds: 1), (timer) async {
+      Timer.periodic(Duration(seconds: 1), (timer) async {
         if (_cameraService.controller != null &&
             _cameraService.controller!.value.isInitialized) {
           final XFile photo = await _cameraService.controller!.takePicture();

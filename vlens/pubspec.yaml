@@ -14,16 +14,16 @@ dependencies:
     sdk: flutter
 
   # to use camera
-  camera: 0.11.1
+  camera: ^0.11.1
 
   http: ^1.2.2
 
-  provider: 6.1.2
+  provider: ^6.1.2
   logger: ^2.5.0
 
-  flutter_image_compress: 2.4.0
+  flutter_image_compress: ^2.4.0
 
-  google_mlkit_face_detection: 0.12.0
+  google_mlkit_face_detection: ^0.12.0
 
 dev_dependencies:
   flutter_test:
