@@ -55,12 +55,13 @@ class CameraService {
 
     try {
       await _controller!.initialize();
-      if (Platform.isAndroid) {
-        await _controller!.lockCaptureOrientation(DeviceOrientation.portraitUp);
-      } else {
-        await _controller!
-            .lockCaptureOrientation(DeviceOrientation.landscapeLeft);
-      }
+      await _controller!.lockCaptureOrientation(DeviceOrientation.landscapeLeft);
+      // if (Platform.isAndroid) {
+      //   await _controller!.lockCaptureOrientation(DeviceOrientation.portraitUp);
+      // } else {
+      //   await _controller!
+      //       .lockCaptureOrientation(DeviceOrientation.landscapeLeft);
+      // }
       _currentType = type;
     } on CameraException catch (e) {
       debugPrint('Camera switch error: ${e.description}');

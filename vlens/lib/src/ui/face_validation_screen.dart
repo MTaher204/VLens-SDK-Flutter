@@ -38,7 +38,6 @@ class _FaceValidationScreenState extends State<FaceValidationScreen> {
   bool _isInitialized = false;
   late FaceValidationTypes _currentFace;
   bool _isLoading = false;
-  bool _shouldFlipPreview = false;
 
   var logger = Logger();
 
@@ -157,11 +156,7 @@ class _FaceValidationScreenState extends State<FaceValidationScreen> {
                   _cameraService.controller!.value.aspectRatio,
               child: Transform(
                 alignment: Alignment.center,
-                transform: _shouldFlipPreview
-                    ? Matrix4.diagonal3Values(1.0, -1.0, 1.0)
-                    :(Platform.isIOS
-                    ? Matrix4.diagonal3Values(-1.0, -1.0, 1.0)
-                    : Matrix4.diagonal3Values(-1.0, 1.0, 1.0)),
+                transform: Matrix4.diagonal3Values(-1.0, -1.0, 1.0),
                   child: CameraPreview(_cameraService.controller!),
               ),
             ),
@@ -301,14 +296,14 @@ class _FaceValidationScreenState extends State<FaceValidationScreen> {
             _cameraService.controller!.description;
 
         // Check camera sensor orientation
-        bool shouldFlip = cameraDescription.sensorOrientation == 270;
+        // bool shouldFlip = cameraDescription.sensorOrientation == 270;
         logger.d(
             'Camera sensor orientation: ${cameraDescription.sensorOrientation}');
 
         if (mounted) {
           setState(() {
             _isInitialized = true;
-            _shouldFlipPreview = shouldFlip; // Store the flag
+            // _shouldFlipPreview = shouldFlip; // Store the flag
           });
           _startFaceDetection();
         }
@@ -324,7 +319,7 @@ class _FaceValidationScreenState extends State<FaceValidationScreen> {
     bool isProcessing = false; // Prevent overlapping detections
 
     if (Platform.isAndroid) {
-      Timer.periodic(Duration(seconds: 1), (timer) async {
+      Timer.periodic(Duration(microseconds: 500), (timer) async {
         if (_cameraService.controller != null &&
             _cameraService.controller!.value.isInitialized) {
           final XFile photo = await _cameraService.controller!.takePicture();
@@ -352,7 +347,7 @@ class _FaceValidationScreenState extends State<FaceValidationScreen> {
         if (isProcessing) return;
 
         isProcessing = true;
-        Timer(Duration(seconds: 1), () async {
+        Timer(Duration(microseconds: 500), () async {
           try {
             final detectedGesture =
                 await _faceDetectionService.detectFaceGesture(

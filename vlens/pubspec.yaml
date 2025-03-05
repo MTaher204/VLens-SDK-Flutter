@@ -1,6 +1,6 @@
 name: vlens
-description: "A new Flutter package project."
-version: 0.0.1
+description: "VLens Flutter SDK provides seamless integration for biometric verification."
+version: 0.0.5
 homepage: https://github.com/MTaher204/VLens-SDK-Flutter
 
 environment:
@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
 
   # to use camera
-  camera: ^0.11.1
+  camera: ^0.10.6
 
   http: ^1.2.2
 
